@@ -29,12 +29,10 @@
 </form>
 
 
-
-
 <table>
     <tr>
         <td>
-            <form method="get" action="/view.jsp">
+            <form method="get" action="/allUser">
                 <input style="width:200px;height:20px" type="submit" value="Страница Просмотр" name="allUser">
             </form>
         </td>

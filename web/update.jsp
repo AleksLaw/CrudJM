@@ -25,7 +25,6 @@
 %>
 
 
-
 <form method="post" action="/update">
     <h2>Кого меняем</h2><br/>
     <label><input type="text" name="nameOld"></label>Старое Имя<br>
@@ -37,14 +36,14 @@
 
     <label><input type="text" name="surnameNew"></label>Новая Фамилия<br>
 
-    <input type="submit" value="Добавить" ><br>
+    <input type="submit" value="Изменить"><br>
 </form>
 
 
 <table>
     <tr>
         <td>
-            <form method="get" action="/view.jsp">
+            <form method="get" action="/allUser">
                 <input style="width:200px;height:20px" type="submit" value="Страница Просмотр" name="allUser">
             </form>
         </td>

@@ -1,6 +1,7 @@
 package service;
 
-import DAO.UserDAO;
+import DAO.UserDAOHibernate;
+import DAO.UserDAOJdbc;
 import model.User;
 
 import java.util.ArrayList;
@@ -9,17 +10,21 @@ import java.util.List;
 
 public class UserService {
     private static UserService userService;
-    private UserDAO userDAO;
+    //   private UserDAOHibernate userDAO;
+    private UserDAOJdbc userDAO;
 
     public static UserService getInstance() {
         if (userService == null) {
-            userService = new UserService(UserDAO.getInstance());
+            //         userService = new UserService(UserDAOHibernate.getInstance());
+            userService = new UserService();
+
         }
         return userService;
     }
 
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    //  public UserService(UserDAOHibernate userDAO) {
+    private UserService() {
+        userDAO=UserDAOJdbc.getInstance();
     }
 
     public List<User> allUser() {
@@ -29,23 +34,18 @@ public class UserService {
     }
 
     public boolean addUser(User user) {
-       return userDAO.addUserDAO(user);
+        return userDAO.addUserDAO(user);
     }
 
-    public boolean delUser(User user) {
-        return userDAO.delUserDAO(user);
+    public boolean delUser(int id) {
+        return userDAO.delUserDAO(id);
     }
 
     public boolean updateUser(User userOld, User userNew) {
-        return userDAO.updateUserDAO(userOld,userNew);
+        return userDAO.updateUserDAO(userOld, userNew);
     }
-
-    public Long findUser(User user) {
-        return userDAO.findUserDAO(user);
-    }
-
-    public User getUserById(Long id) {
-        return userDAO.getUserByIdDAO(id);
+public boolean updateUser(int id, User userNew) {
+        return userDAO.updateUserDAO(id, userNew);
     }
 
 }
