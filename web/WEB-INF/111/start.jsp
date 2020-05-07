@@ -1,54 +1,64 @@
 <%--
   Created by IntelliJ IDEA.
   User: LAW
-  Date: 01.05.2020
-  Time: 20:33
+  Date: 30.04.2020
+  Time: 18:50
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Delete</title>
+    <title>StartPage</title>
 </head>
 <body>
-<h2>Удаление пользователя</h2><br/>
-<% String name = request.getParameter("name");
-    String surname = request.getParameter("surname");
-    if (name != null & surname != null) {
-        out.print(name + " " + surname + " удален");
-    }
+<h2>Выбор</h2>
 
-%>
-<form method="post" action="/delUser">
 
-    <label><input type="text" name="name"></label>Имя<br>
 
-    <label><input type="text" name="surname"></label>Фамилия<br>
+<table border="1">
+    <caption>Таблица размеров обуви</caption>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>SurName</th>
+        <th>Action</th>
+    </tr>
+    <tr><td>34,5</td><td>3,5</td><td>36</td><td>23</td></tr>
+    <tr><td>44</td><td>10,5</td><td>45⅓</td><td>28,5–29</td></tr>
+     <tr><td>47</td><td>13</td><td>48⅔</td><td>31</td></tr>
+    <tr><td>48</td><td>13,5</td><td>49⅓</td><td>31,5</td></tr>
+</table>
+<c:forEach var="user" items="${users}">
+    <li><c:out value="${user}" /></li>
+</c:forEach>
 
-    <input type="submit" value="Удалить" name="del"><br>
-</form>
+
+
+
+
+
 
 
 <table>
     <tr>
         <td>
-            <form method="get" action="/allUser">
+            <form method="post" action="/allUser">
                 <input style="width:200px;height:20px" type="submit" value="Страница Просмотр" name="allUser">
             </form>
         </td>
         <td>
-            <form method="get" action="/add.jsp">
+            <form method="post" action="/view">
                 <input style="width:200px;height:20px" type="submit" value="Страница Добавить" name="addUser">
             </form>
         </td>
 
         <td>
-            <form method="get" action="/update.jsp">
+            <form method="post" action="/WEB-INF/111/update.jsp">
                 <input style="width:200px;height:20px" type="submit" value="Страница Изменить" name="updateUser"><br>
             </form>
         </td>
         <td>
-            <form method="get" action="/delete.jsp">
+            <form method="post" action="/WEB-INF/111/delete.jsp">
                 <input style="width:200px;height:20px" type="submit" value="Страница Удалить" name="delUser"><br>
             </form>
         </td>

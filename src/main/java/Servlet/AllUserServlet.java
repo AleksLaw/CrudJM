@@ -1,7 +1,7 @@
 package Servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,15 +14,15 @@ import java.util.List;
 @WebServlet(value = "/allUser")
 public class AllUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = UserService.getInstance();
-        List<User> lists=userService.allUser();
+        UserServiceImp userServiceImp = UserServiceImp.getInstance();
+        List<User> lists= userServiceImp.allUser();
         request.setAttribute("list", lists);
         request.getRequestDispatcher("/test.jsp").forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = UserService.getInstance();
-        List<User> lists=userService.allUser();
+        UserServiceImp userServiceImp = UserServiceImp.getInstance();
+        List<User> lists= userServiceImp.allUser();
         request.setAttribute("lists", lists);
         request.getRequestDispatcher("/test.jsp").forward(request, response);
     }

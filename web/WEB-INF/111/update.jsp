@@ -48,18 +48,18 @@
             </form>
         </td>
         <td>
-            <form method="get" action="/add.jsp">
+            <form method="get" action="/WEB-INF/111/add.jsp/111/add.jsp">
                 <input style="width:200px;height:20px" type="submit" value="Страница Добавить" name="addUser">
             </form>
         </td>
 
         <td>
-            <form method="get" action="/update.jsp">
+            <form method="get" action="/WEB-INF/111/update.jsp">
                 <input style="width:200px;height:20px" type="submit" value="Страница Изменить" name="updateUser"><br>
             </form>
         </td>
         <td>
-            <form method="get" action="/delete.jsp">
+            <form method="get" action="/WEB-INF/111/delete.jsp1/delete.jsp">
                 <input style="width:200px;height:20px" type="submit" value="Страница Удалить" name="delUser"><br>
             </form>
         </td>

@@ -10,14 +10,13 @@ import java.util.List;
 
 
 public class UserDAOJdbc implements UserDAO {
-    private   Connection connection;
+    private Connection connection;
     private static UserDAOJdbc userDAOJdbc;
 
     private UserDAOJdbc() {
         DBHelper dbHelper = DBHelper.getInstance();
         this.connection = dbHelper.getConnection();
     }
-
 
     public static UserDAOJdbc getInstance() {
         if (userDAOJdbc == null) {
@@ -82,18 +81,13 @@ public class UserDAOJdbc implements UserDAO {
     }
 
     @Override
-    public boolean delUserDAO(User user) {
-        return false;
-    }
-
-    // @Override
-    public boolean delUserDAO(int id) {
+    public boolean delUserDAO(Long id) {
         int beforeDel = count();
         try {
             PreparedStatement prstm = connection.prepareStatement(
                     "select * from testdb.users where id = ? ",
                     ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            prstm.setInt(1, id);
+            prstm.setLong(1, id);
             ResultSet result = prstm.executeQuery();
             result.next();
             result.deleteRow();
@@ -107,25 +101,7 @@ public class UserDAOJdbc implements UserDAO {
     }
 
     @Override
-    public boolean updateUserDAO(User userOld, User userNew) {
-//        int beforeUpdate = count();
-//        int afterUpdate = 0;
-//        try {
-//            PreparedStatement prstm = connection.prepareStatement(
-//                    "UPDATE  testdb.users SET name=?, surname=? WHERE id = ?;");
-//         //   long id = getUserIdByName(userOld.getName(), userOld.getSurname());
-//            prstm.setString(1, userNew.getName());
-//            prstm.setString(2, userNew.getSurname());
-//       //     prstm.setLong(3, id);
-//            afterUpdate = count();
-//            prstm.executeUpdate();
-//            prstm.close();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-        return true;
-    }
-public boolean updateUserDAO(int id, User userNew) {
+    public boolean updateUserDAO(Long id, User userNew) {
         int beforeUpdate = count();
         int afterUpdate = 0;
         try {
@@ -142,25 +118,6 @@ public boolean updateUserDAO(int id, User userNew) {
         }
         return beforeUpdate == afterUpdate;
     }
-
-  //  public long getUserIdByName(String name, String surname) {
-//        long id = 0;
-//        try {
-//            PreparedStatement prstm = connection.prepareStatement(
-//                    "SELECT *  FROM testdb.users where name=? and surname=? ;");
-//            prstm.setString(1, name);
-//            prstm.setString(2, surname);
-//            ResultSet result = prstm.executeQuery();
-//            result.next();
-//            id = result.getLong(1);
-//            result.close();
-//            prstm.close();
-//        } catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
-//        return id;
-//    }
-
 
     public void createTable() throws SQLException {
         PreparedStatement prstm = connection.prepareStatement

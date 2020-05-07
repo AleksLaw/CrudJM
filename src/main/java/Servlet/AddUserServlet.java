@@ -1,7 +1,7 @@
 package Servlet;
 
 import model.User;
-import service.UserService;
+import service.UserServiceImp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,17 +13,13 @@ import java.io.IOException;
 @WebServlet(value = "/addUser")
 public class AddUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserService userService = UserService.getInstance();
+        UserServiceImp userServiceImp = UserServiceImp.getInstance();
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        if (!name.equals("") && !surname.equals("")) {
-            if (userService.addUser(new User(name, surname))) {
-                request.getRequestDispatcher("/add.jsp").forward(request, response);
-            }
-        } else {
-            response.getWriter().println("USER NOT ADDED");
-        }
+        userServiceImp.addUser(new User(name, surname));
+                response.sendRedirect("/allUser");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,6 +2,7 @@ package DAO;
 
 
 import model.User;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,10 +15,10 @@ import java.util.List;
 
 
 public class UserDAOHibernate implements UserDAO {
-    private UserDAOHibernate userDAOHibernate;
-    private SessionFactory sessionFactory;
+    private static UserDAOHibernate userDAOHibernate;
+    private static SessionFactory sessionFactory;
 
-    public UserDAOHibernate getInstance() {
+    public static UserDAOHibernate getInstance() {
         if (userDAOHibernate == null) {
             userDAOHibernate = new UserDAOHibernate();
             sessionFactory = getSessionFactory();
@@ -28,7 +29,7 @@ public class UserDAOHibernate implements UserDAO {
     private UserDAOHibernate() {
     }
 
-    public SessionFactory getSessionFactory() {
+    public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             sessionFactory = createSessionFactory();
         }
@@ -48,64 +49,68 @@ public class UserDAOHibernate implements UserDAO {
     @Override
     @SuppressWarnings("UnusedDeclaration")
     public boolean addUserDAO(User user) {
+        int beforeAdd = 0;
+        int afterAdd = 0;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        int beforeAdd = session.createCriteria(User.class).list().size();
-        session.save(user);
-        int afterAdd = session.createCriteria(User.class).list().size();
+        beforeAdd = session.createCriteria(User.class).list().size();
+        afterAdd = session.createCriteria(User.class).list().size();
+        try {
+            session.save(user);
+        } catch (HibernateException e) {
+            transaction.rollback();
+        }
         transaction.commit();
         session.close();
         return beforeAdd <= afterAdd;
     }
 
+
     @Override
     @SuppressWarnings("UnusedDeclaration")
-    public boolean delUserDAO(User user) {
+    public boolean delUserDAO(Long id) {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        Long id = findUserDAO(user);
-        User user1 = session.load(User.class, id);
+        User user = session.get(User.class, id);
         int beforeAdd = session.createCriteria(User.class).list().size();
-        session.delete(user1);
-        int afterAdd = session.createCriteria(User.class).list().size();
+        try {
+            session.delete(user);
+        } catch (Exception e) {
+            transaction.rollback();
+        }
         transaction.commit();
+        int afterAdd = session.createCriteria(User.class).list().size();
         session.close();
         return beforeAdd > afterAdd;
     }
 
     @Override
-    @SuppressWarnings("UnusedDeclaration")
-    public boolean updateUserDAO(User userOld, User userNew) {
+    public boolean updateUserDAO(Long id, User userNew) {
         Session session = sessionFactory.openSession();
-        List<User> listUser = session.createCriteria(User.class).
-                add(Restrictions.eq("name", userOld.getName())).
-                add(Restrictions.eq("surname", userOld.getSurname())).
-                list();
-        User userGet = listUser.get(0);
         Transaction transaction = session.beginTransaction();
-        User userUpdate = session.load(User.class, userGet.getId());
+        User userUpdate = session.get(User.class, id);
         userUpdate.setName(userNew.getName());
         userUpdate.setSurname(userNew.getSurname());
         int beforeUpdate = session.createCriteria(User.class).list().size();
-        session.update(userUpdate);
+        try {
+            session.update(userUpdate);
+        } catch (Exception e) {
+            transaction.rollback();
+        }
         int afterUpdate = session.createCriteria(User.class).list().size();
         transaction.commit();
         session.close();
         return beforeUpdate == afterUpdate;
-
     }
 
     @SuppressWarnings("UnusedDeclaration")
     public Long findUserDAO(User user) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         List<User> listUser = session.createCriteria(User.class).
                 add(Restrictions.eq("name", user.getName())).
                 add(Restrictions.eq("surname", user.getSurname())).
                 list();
-
-        transaction.commit();
         session.close();
         if (listUser.size() != 0) {
             User userGet = listUser.get(0);
@@ -118,9 +123,7 @@ public class UserDAOHibernate implements UserDAO {
     @SuppressWarnings("UnusedDeclaration")
     public User getUserByIdDAO(Long id) {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         User user = session.get(User.class, id);
-        transaction.commit();
         session.close();
         return user;
     }
@@ -129,9 +132,7 @@ public class UserDAOHibernate implements UserDAO {
     @SuppressWarnings("UnusedDeclaration")
     public List<User> allUserDAO() {
         Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
         List<User> list = (List<User>) session.createCriteria(User.class).list();
-        transaction.commit();
         session.close();
         return list;
     }

@@ -46,28 +46,28 @@
         <th>Delete</th>
     </tr>
     <c:forEach var="list" items="${lists}">
-    <form method="post" action="/delUser">
-        <form method="post" action="/updateUser">
         <tr>
-            <td align="center" ; width="20"><c:out value="${list.id}"/></td>
-            <td align="center" ; width="20"><c:out value="${list.name}"/></td>
-            <td align="center" ; width="20"><c:out value="${list.surname}"/></td>
-            <td align="center" ; width="20">
-<%--                    <input class="cellbut" type="submit" value="Update" name=<c:out value="${list.id}" /> >--%>
-    <input type="hidden" name="mame" value="<c:out value="${list.id}"/>">
-                    <input class="cellbut" type="submit" value="Update" name="name">
+            <td align="center" width="20"><c:out value="${list.id}"/></td>
+            <form method="post" action="/updateUser">
+            <td align="center"><label><input align="center" type="text" name="name" value="<c:out value="${list.name}"/>"   ></label></td>
+            <td align="center"><label><input align="center" type="text" name="surname" value="<c:out value="${list.surname}"/>" ><label></label></td>
+
+                <td align="center">
+                    <input type="hidden" name="id" value="<c:out value="${list.id}"/>">
+                    <input class="cellbut" type="submit" value="Update" name="update"><br>
+            </form>
             </td>
-            <td align="center" ; width="20">
-                <input type="hidden" name="name" value="<c:out value="${list.id}"/>">
-                    <input class="cellbut" type="submit" value="Delete" name="name"><br>
-<%--                    <input class="cellbut" type="submit" value="Delete" name="${list.id} "><br>--%>
+
+            <form method="post" action="/delUser">
+                <td align="center">
+                    <input type="hidden" name="id" value="<c:out value="${list.id}"/>">
+                    <input class="cellbut" type="submit" value="Delete" name="delete"><br>
+            </form>
             </td>
         </tr>
-        </form>
-        </form>
-
-
     </c:forEach>
+
+
     <tr>
         <td></td>
         <form method="post" action="/addUser">
@@ -78,17 +78,6 @@
                 <input class="cellbut" type="submit" value="Add" name="addUser">
             </td>
         </form>
-    </tr>
-</table>
-
-
-<table>
-    <tr>
-        <td>
-            <form method="get" action="/allUser">
-                <input style="width:200px;height:20px" type="submit" value="Страница Просмотр" name="allUser">
-            </form>
-        </td>
     </tr>
 </table>
 
