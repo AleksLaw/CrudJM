@@ -49,8 +49,10 @@
         <tr>
             <td align="center" width="20"><c:out value="${list.id}"/></td>
             <form method="post" action="/updateUser">
-            <td align="center"><label><input align="center" type="text" name="name" value="<c:out value="${list.name}"/>"   ></label></td>
-            <td align="center"><label><input align="center" type="text" name="surname" value="<c:out value="${list.surname}"/>" ><label></label></td>
+                <td align="center"><label><input align="center" type="text" name="name"
+                                                 value="<c:out value="${list.name}"/>"></label></td>
+                <td align="center"><label><input align="center" type="text" name="surname"
+                                                 value="<c:out value="${list.surname}"/>"><label></label></td>
 
                 <td align="center">
                     <input type="hidden" name="id" value="<c:out value="${list.id}"/>">

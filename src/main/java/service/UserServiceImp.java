@@ -1,6 +1,7 @@
 package service;
 
-import DAO.UserDAOHibernate;
+import DAO.UserDAO;
+import DAO.UserDAOFactory;
 import model.User;
 
 import java.util.ArrayList;
@@ -9,21 +10,17 @@ import java.util.List;
 
 public class UserServiceImp implements UserService {
     private static UserServiceImp userServiceImp;
-    private UserDAOHibernate userDAO;
-    //  private UserDAOJdbc userDAO;
+    private UserDAO userDAO;
 
     public static UserServiceImp getInstance() {
         if (userServiceImp == null) {
-            //         userService = new UserService(UserDAOHibernate.getInstance());
             userServiceImp = new UserServiceImp();
-
         }
         return userServiceImp;
     }
 
     public UserServiceImp() {
-        // userDAO = UserDAOJdbc.getInstance();
-        userDAO = UserDAOHibernate.getInstance();
+        userDAO = new UserDAOFactory().getUserDAO();
     }
 
     @Override

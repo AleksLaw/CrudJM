@@ -45,7 +45,6 @@ public class UserDAOHibernate implements UserDAO {
         return configuration.buildSessionFactory(builder.build());
     }
 
-
     @Override
     @SuppressWarnings("UnusedDeclaration")
     public boolean addUserDAO(User user) {

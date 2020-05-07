@@ -15,7 +15,6 @@ public class DBHelper {
         this.dbHelper = dbHelper;
     }
 
-
     public static DBHelper getInstance() {
         if (dbHelper == null) {
             dbHelper = new DBHelper();
@@ -26,7 +25,6 @@ public class DBHelper {
     public Configuration getConfiguration() {
         Configuration configuration = new Configuration();
         configuration.addAnnotatedClass(User.class);
-
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         configuration.setProperty("hibernate.connection.driver_class", "com.mysql.jdbc.Driver");
         configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/testdb");
