@@ -12,4 +12,8 @@ public interface UserService {
     public boolean delUser(Long id);
 
     public boolean updateUser(Long id, User userNew) ;
+
+    Long getUserIdByName(String name, String password) ;
+
+    User getUserById(Long id);
 }

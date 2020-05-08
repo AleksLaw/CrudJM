@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(value = "/updateUser")
+@WebServlet(value = "/admin/updateUser")
 public class UpdateUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserServiceImp userServiceImp = UserServiceImp.getInstance();
@@ -18,35 +18,19 @@ public class UpdateUserServlet extends HttpServlet {
         response.getWriter().println(request.getParameter("id"));
         response.getWriter().println(request.getParameter("name"));
         response.getWriter().println(request.getParameter("surname"));
+        response.getWriter().println(request.getParameter("role"));
 
         Long id = Long.parseLong(request.getParameter("id"));
 
         String nameNew = request.getParameter("name");
-        String surnameNew = request.getParameter("surname");
-        User userNew = new User(nameNew, surnameNew);
+        String passwordNew = request.getParameter("password");
+        String roleNew = request.getParameter("role");
+        User userNew = new User(nameNew, passwordNew, roleNew);
 
 
         userServiceImp.updateUser(id, userNew);
-        response.sendRedirect("/allUser");
-        //     request.getRequestDispatcher("/update.jsp").forward(request, response);
+        response.sendRedirect("/admin/allUser");
 
-
-        //        UserService userService = UserService.getInstance();
-//        String nameOld = request.getParameter("nameOld");
-//        String surnameOld = request.getParameter("surnameOld");
-//        String nameNew = request.getParameter("nameNew");
-//        String surnameNew = request.getParameter("surnameNew");
-//        User userOld = new User(nameOld, surnameOld);
-//        User userNew = new User(nameNew, surnameNew);
-//
-//        if (!nameOld.equals("") && !surnameOld.equals("")
-//                && !nameNew.equals("") && !surnameNew.equals("")) {
-//            if (userService.updateUser(userOld, userNew)) {
-//                request.getRequestDispatcher("/update.jsp").forward(request, response);
-//            }
-//        } else {
-//            response.getWriter().println("USER NOT UPDATE");
-//        }
     }
 
 

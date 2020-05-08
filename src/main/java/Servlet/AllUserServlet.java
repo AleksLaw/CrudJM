@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(value = "/allUser")
+@WebServlet(value = "/admin/allUser")
 public class AllUserServlet extends HttpServlet {
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        UserServiceImp userServiceImp = UserServiceImp.getInstance();
-//        List<User> lists= userServiceImp.allUser();
-//        request.setAttribute("list", lists);
-//        request.getRequestDispatcher("//test.jsp").forward(request, response);
-//    }
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserServiceImp userServiceImp = UserServiceImp.getInstance();
         List<User> lists= userServiceImp.allUser();
         request.setAttribute("lists", lists);
-        request.getRequestDispatcher("/WEB-INF/test.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UserServiceImp userServiceImp = UserServiceImp.getInstance();
+        List<User> lists= userServiceImp.allUser();
+        req.setAttribute("lists", lists);
+        req.getRequestDispatcher("/WEB-INF/admin.jsp").forward(req, resp);
     }
 }

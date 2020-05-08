@@ -37,22 +37,25 @@
 </head>
 <body>
 <table>
-    <caption>Таблица пользователей</caption>
+    <caption>Table users</caption>
     <tr>
         <th>Id</th>
         <th>Name</th>
-        <th>SurName</th>
+        <th>Password</th>
+        <th>Role</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
     <c:forEach var="list" items="${lists}">
         <tr>
             <td align="center" width="20"><c:out value="${list.id}"/></td>
-            <form method="post" action="/updateUser">
+            <form method="post" action="/admin/updateUser">
                 <td align="center"><label><input align="center" type="text" name="name"
                                                  value="<c:out value="${list.name}"/>"></label></td>
-                <td align="center"><label><input align="center" type="text" name="surname"
-                                                 value="<c:out value="${list.surname}"/>"><label></label></td>
+                <td align="center"><label><input align="center" type="text" name="password"
+                                                 value="<c:out value="${list.password}"/>"></label>
+                </td><td align="center"><label><input align="center" type="text" name="role"
+                                                 value="<c:out value="${list.role}"/>"></label></td>
 
                 <td align="center">
                     <input type="hidden" name="id" value="<c:out value="${list.id}"/>">
@@ -60,7 +63,7 @@
             </form>
             </td>
 
-            <form method="post" action="/delUser">
+            <form method="post" action="/admin/delUser">
                 <td align="center">
                     <input type="hidden" name="id" value="<c:out value="${list.id}"/>">
                     <input class="cellbut" type="submit" value="Delete" name="delete"><br>
@@ -72,9 +75,11 @@
 
     <tr>
         <td></td>
-        <form method="post" action="/addUser">
+        <form method="post" action="/admin/addUser">
             <td><label><input type="text" name="name"></label><br></td>
-            <td><label><input type="text" name="surname"></label><br></td>
+            <td><label><input type="text" name="password"></label><br></td>
+            <td><label><input type="text" name="role"></label><br></td>
+
             <td></td>
             <td align="center" ; width="20">
                 <input class="cellbut" type="submit" value="Add" name="addUser">

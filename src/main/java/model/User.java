@@ -12,20 +12,32 @@ public class User {
     @Column
     private String name;
     @Column
-    private String surname;
+    private String password;
+    @Column
+    private String role;
 
     public User() {
     }
 
-    public User(Long id, String name, String surname) {
+    public User(Long id, String name, String password, String role) {
         this.id = id;
         this.name = name;
-        this.surname = surname;
+        this.password = password;
+        this.role = role;
     }
 
-    public User(String name, String surname) {
+    public User(String name, String password, String role) {
         this.name = name;
-        this.surname = surname;
+        this.password = password;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Long getId() {
@@ -36,8 +48,8 @@ public class User {
         return name;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getPassword() {
+        return password;
     }
 
     public void setId(Long id) {
@@ -48,9 +60,10 @@ public class User {
         this.name = name;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setPassword(String password) {
+        this.password = password;
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -59,21 +72,23 @@ public class User {
 
         User user = (User) o;
 
-        if (id != null ? !id.equals(user.id) : user.id != null) return false;
-        if (name != null ? !name.equals(user.name) : user.name != null) return false;
-        return surname != null ? surname.equals(user.surname) : user.surname == null;
+        if (!id.equals(user.id)) return false;
+        if (!name.equals(user.name)) return false;
+        if (!password.equals(user.password)) return false;
+        return role.equals(user.role);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + role.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "User: " + "id=" + id + ", name=" + name + ", surname=" + surname;
+        return "User: " + "id=" + id + ", name=" + name + ", password=" + password + ", role=" + role;
     }
 }

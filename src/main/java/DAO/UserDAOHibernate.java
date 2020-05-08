@@ -90,7 +90,8 @@ public class UserDAOHibernate implements UserDAO {
         Transaction transaction = session.beginTransaction();
         User userUpdate = session.get(User.class, id);
         userUpdate.setName(userNew.getName());
-        userUpdate.setSurname(userNew.getSurname());
+        userUpdate.setPassword(userNew.getPassword());
+        userUpdate.setRole(userNew.getRole());
         int beforeUpdate = session.createCriteria(User.class).list().size();
         try {
             session.update(userUpdate);
@@ -103,12 +104,21 @@ public class UserDAOHibernate implements UserDAO {
         return beforeUpdate == afterUpdate;
     }
 
+    @Override
     @SuppressWarnings("UnusedDeclaration")
-    public Long findUserDAO(User user) {
+    public List<User> allUserDAO() {
+        Session session = sessionFactory.openSession();
+        List<User> list = (List<User>) session.createCriteria(User.class).list();
+        session.close();
+        return list;
+    }
+
+    @Override
+    public Long getUserIdByName(String name, String password) {
         Session session = sessionFactory.openSession();
         List<User> listUser = session.createCriteria(User.class).
-                add(Restrictions.eq("name", user.getName())).
-                add(Restrictions.eq("surname", user.getSurname())).
+                add(Restrictions.eq("name", name)).
+                add(Restrictions.eq("password", password)).
                 list();
         session.close();
         if (listUser.size() != 0) {
@@ -119,20 +129,12 @@ public class UserDAOHibernate implements UserDAO {
         return null;
     }
 
+    @Override
     @SuppressWarnings("UnusedDeclaration")
-    public User getUserByIdDAO(Long id) {
+    public User getUserById(Long id) {
         Session session = sessionFactory.openSession();
         User user = session.get(User.class, id);
         session.close();
         return user;
-    }
-
-    @Override
-    @SuppressWarnings("UnusedDeclaration")
-    public List<User> allUserDAO() {
-        Session session = sessionFactory.openSession();
-        List<User> list = (List<User>) session.createCriteria(User.class).list();
-        session.close();
-        return list;
     }
 }

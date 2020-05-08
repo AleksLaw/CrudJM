@@ -35,7 +35,8 @@ public class UserDAOJdbc implements UserDAO {
                 Long tmpId = result.getLong(1);
                 String tmpName = result.getString(2);
                 String tmpPass = result.getString(3);
-                User tmpUser = new User(tmpId, tmpName, tmpPass);
+                String tmpRole = result.getString(4);
+                User tmpUser = new User(tmpId, tmpName, tmpPass, tmpRole);
                 list.add(tmpUser);
             }
             result.close();
@@ -45,6 +46,7 @@ public class UserDAOJdbc implements UserDAO {
         }
         return list;
     }
+
 
     public int count() {
         int i = 0;
@@ -68,9 +70,10 @@ public class UserDAOJdbc implements UserDAO {
         int beforeAdd = count();
         try {
             PreparedStatement prstm = connection.prepareStatement(
-                    "insert into testdb.users (name, surname)  values (?,?)");
+                    "insert into testdb.users (name, password, role)  values (?,?,?)");
             prstm.setString(1, user.getName());
-            prstm.setString(2, user.getSurname());
+            prstm.setString(2, user.getPassword());
+            prstm.setString(3, user.getRole());
             prstm.executeUpdate();
             prstm.close();
         } catch (SQLException throwables) {
@@ -106,10 +109,11 @@ public class UserDAOJdbc implements UserDAO {
         int afterUpdate = 0;
         try {
             PreparedStatement prstm = connection.prepareStatement(
-                    "UPDATE  testdb.users SET name=?, surname=? WHERE id = ?;");
+                    "UPDATE  testdb.users SET name=?, password=?,role=? WHERE id = ?;");
             prstm.setString(1, userNew.getName());
-            prstm.setString(2, userNew.getSurname());
-            prstm.setLong(3, id);
+            prstm.setString(2, userNew.getPassword());
+            prstm.setString(3, userNew.getRole());
+            prstm.setLong(4, id);
             afterUpdate = count();
             prstm.executeUpdate();
             prstm.close();
@@ -119,12 +123,14 @@ public class UserDAOJdbc implements UserDAO {
         return beforeUpdate == afterUpdate;
     }
 
+
     public void createTable() throws SQLException {
         PreparedStatement prstm = connection.prepareStatement
                 (
                         "create table if not exists users " +
                                 "(id bigint auto_increment, name varchar(256)" +
-                                ", surname varchar(256), primary key (id))"
+                                ", password varchar(256) , role varchar(256)" +
+                                ", primary key (id))"
                 );
         prstm.executeUpdate();
         prstm.close();
@@ -136,4 +142,43 @@ public class UserDAOJdbc implements UserDAO {
         prstm.executeUpdate();
         prstm.close();
     }
+
+
+    @Override
+    public User getUserById(Long id) {
+        User user=null;
+        try {
+            PreparedStatement prstm = connection.prepareStatement(
+                    "SELECT  *  FROM testdb.users where id=?;");
+            prstm.setLong(1, id);
+            ResultSet result = prstm.executeQuery();
+            result.next();
+            user = new User(id, result.getString(2), result.getString(3), result.getString(4));
+            result.close();
+            prstm.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public Long getUserIdByName(String name, String password) {
+        Long id = null;
+        try {
+            PreparedStatement prstm = connection.prepareStatement(
+                    "SELECT *  FROM testdb.users where name=? and password=? ;");
+            prstm.setString(1, name);
+            prstm.setString(2, password);
+            ResultSet result = prstm.executeQuery();
+            result.next();
+            id = result.getLong(1);
+            result.close();
+            prstm.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return id;
+    }
+
 }
