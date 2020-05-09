@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class UserDAOFactory {
     private String typeDao;
-    private DAOmaker dAOmaker;
+    private DAOmaker makerDAO;
     private UserDAO userDAO;
 
     public UserDAO getUserDAO() {
@@ -26,8 +26,8 @@ public class UserDAOFactory {
         } catch (IOException e) {
             System.err.println("ОШИБКА: Файл свойств отсуствует!");
         }
-        dAOmaker = getdAOmaker(typeDao);
-        userDAO = dAOmaker.createDAO();
+        makerDAO = getdAOmaker(typeDao);
+        userDAO = makerDAO.createDAO();
     }
 
     public DAOmaker getdAOmaker(String maker) {

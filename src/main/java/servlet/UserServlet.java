@@ -1,7 +1,6 @@
-package Servlet;
+package servlet;
 
 import model.User;
-import service.UserServiceImp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

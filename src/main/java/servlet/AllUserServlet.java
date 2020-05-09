@@ -1,4 +1,4 @@
-package Servlet;
+package servlet;
 
 import model.User;
 import service.UserServiceImp;
