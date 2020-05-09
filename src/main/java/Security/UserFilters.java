@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-
 @WebFilter(urlPatterns = "/admin/*")
 public class UserFilters implements Filter {
 
