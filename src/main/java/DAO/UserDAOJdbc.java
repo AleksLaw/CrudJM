@@ -16,11 +16,19 @@ public class UserDAOJdbc implements UserDAO {
     private UserDAOJdbc() {
         DBHelper dbHelper = DBHelper.getInstance();
         this.connection = dbHelper.getConnection();
+        try {
+            dropTable();
+            createTable();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public static UserDAOJdbc getInstance() {
         if (userDAOJdbc == null) {
             userDAOJdbc = new UserDAOJdbc();
+
+
         }
         return userDAOJdbc;
     }
