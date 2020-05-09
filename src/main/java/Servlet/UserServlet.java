@@ -12,14 +12,16 @@ import java.io.IOException;
 
 @WebServlet(value = "/user")
 public class UserServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user =(User) request.getSession().getAttribute("user");
-
-        response.getWriter().println("Hello "+user.getRole() +" you have Id "+user.getId()+  " Name  "+user.getName() );
-        response.getWriter().println("It is all info about you)");
+        response.getWriter().println("Hello");
+        response.getWriter().println("Role-"+user.getRole());
+        response.getWriter().println("Id-"+user.getId());
+        response.getWriter().println("Name-"+user.getName());
+        response.getWriter().println("Password-"+user.getPassword());
     }
 }

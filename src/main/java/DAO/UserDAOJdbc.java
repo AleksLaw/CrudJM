@@ -146,7 +146,7 @@ public class UserDAOJdbc implements UserDAO {
 
     @Override
     public User getUserById(Long id) {
-        User user=null;
+        User user = null;
         try {
             PreparedStatement prstm = connection.prepareStatement(
                     "SELECT  *  FROM testdb.users where id=?;");

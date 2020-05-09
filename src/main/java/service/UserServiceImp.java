@@ -35,7 +35,7 @@ public class UserServiceImp implements UserService {
         if (!validateUserIsEmpty(user)) {
             return false;
         }
-        if (userDAO.getUserIdByName(user.getName(), user.getPassword()) != null ) {
+        if (userDAO.getUserIdByName(user.getName(), user.getPassword()) != null) {
             return false;
         }
         return userDAO.addUserDAO(user);

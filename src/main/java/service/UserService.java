@@ -5,15 +5,16 @@ import model.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> allUser() ;
 
-    public boolean addUser(User user);
+    List<User> allUser();
 
-    public boolean delUser(Long id);
+    boolean addUser(User user);
 
-    public boolean updateUser(Long id, User userNew) ;
+    boolean delUser(Long id);
 
-    Long getUserIdByName(String name, String password) ;
+    boolean updateUser(Long id, User userNew);
+
+    Long getUserIdByName(String name, String password);
 
     User getUserById(Long id);
 }

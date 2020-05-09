@@ -12,15 +12,14 @@ import java.io.IOException;
 
 @WebServlet(value = "/admin/addUser")
 public class AddUserServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserServiceImp userServiceImp = UserServiceImp.getInstance();
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
-
         userServiceImp.addUser(new User(name, password, role));
         response.sendRedirect("/admin/allUser");
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -13,6 +13,7 @@ import java.util.List;
 
 @WebServlet(value = "/admin/allUser")
 public class AllUserServlet extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserServiceImp userServiceImp = UserServiceImp.getInstance();
         List<User> lists= userServiceImp.allUser();

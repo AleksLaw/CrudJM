@@ -54,7 +54,8 @@
                                                  value="<c:out value="${list.name}"/>"></label></td>
                 <td align="center"><label><input align="center" type="text" name="password"
                                                  value="<c:out value="${list.password}"/>"></label>
-                </td><td align="center"><label><input align="center" type="text" name="role"
+                </td>
+                <td align="center"><label><input align="center" type="text" name="role"
                                                  value="<c:out value="${list.role}"/>"></label></td>
 
                 <td align="center">
@@ -87,7 +88,8 @@
         </form>
     </tr>
 </table>
-
+<p><a href="/">Login page</a></p>
+<p><a href="/user">User page</a></p>
 
 </body>
 </html>

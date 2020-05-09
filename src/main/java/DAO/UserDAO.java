@@ -6,6 +6,7 @@ import model.User;
 import java.util.List;
 
 public interface UserDAO {
+
     boolean addUserDAO(User user);
 
     boolean delUserDAO(Long id);
@@ -14,7 +15,7 @@ public interface UserDAO {
 
     List<User> allUserDAO();
 
-    Long getUserIdByName(String name, String password) ;
+    Long getUserIdByName(String name, String password);
 
     User getUserById(Long id);
 

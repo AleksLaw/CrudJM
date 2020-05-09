@@ -27,6 +27,7 @@
             align-content: center;
             border: 1px solid black
         }
+
         .cellbut {
             width: 100%;
             height: min-content;
