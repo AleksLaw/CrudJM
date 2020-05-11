@@ -15,7 +15,7 @@ import java.util.List;
 
 
 public class UserDAOHibernate implements UserDAO {
-    private static UserDAOHibernate userDAOHibernate;
+    protected static UserDAOHibernate userDAOHibernate;
     private static SessionFactory sessionFactory;
 
     public static UserDAOHibernate getInstance() {
@@ -26,7 +26,7 @@ public class UserDAOHibernate implements UserDAO {
         return userDAOHibernate;
     }
 
-    private UserDAOHibernate() {
+    UserDAOHibernate() {
     }
 
     public static SessionFactory getSessionFactory() {

@@ -16,11 +16,11 @@ public class UserServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user =(User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         response.getWriter().println("Hello");
-        response.getWriter().println("Role-"+user.getRole());
-        response.getWriter().println("Id-"+user.getId());
-        response.getWriter().println("Name-"+user.getName());
-        response.getWriter().println("Password-"+user.getPassword());
+        response.getWriter().println("Role-" + user.getRole());
+        response.getWriter().println("Id-" + user.getId());
+        response.getWriter().println("Name-" + user.getName());
+        response.getWriter().println("Password-" + user.getPassword());
     }
 }

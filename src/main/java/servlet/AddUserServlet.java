@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import service.UserService;
 import service.UserServiceImp;
 
 import javax.servlet.ServletException;
@@ -12,13 +13,14 @@ import java.io.IOException;
 
 @WebServlet(value = "/admin/addUser")
 public class AddUserServlet extends HttpServlet {
+    private final UserService userService = UserServiceImp.getInstance();
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserServiceImp userServiceImp = UserServiceImp.getInstance();
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
-        userServiceImp.addUser(new User(name, password, role));
+        userService.addUser(new User(name, password, role));
         response.sendRedirect("/admin/allUser");
     }
 

@@ -34,7 +34,8 @@ public class DBHelper {
         configuration.setProperty("hibernate.hbm2ddl.auto", "validate");      //       "create"
         return configuration;
     }
-    public  Connection getConnection() {
+
+    public Connection getConnection() {
         try {
             DriverManager.registerDriver((Driver) Class.forName("com.mysql.jdbc.Driver").newInstance());
             StringBuilder url = new StringBuilder();

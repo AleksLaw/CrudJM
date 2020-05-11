@@ -1,6 +1,7 @@
 package servlet;
 
 import model.User;
+import service.UserService;
 import service.UserServiceImp;
 
 import javax.servlet.ServletException;
@@ -13,8 +14,9 @@ import java.io.IOException;
 
 @WebServlet(value = "/loginUser")
 public class LoginUserServlet extends HttpServlet {
+    private final UserService userService = UserServiceImp.getInstance();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserServiceImp userServiceImp = UserServiceImp.getInstance();
         HttpSession session = request.getSession();
         String name = request.getParameter("login");
         String password = request.getParameter("password");
@@ -23,8 +25,8 @@ public class LoginUserServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
         try {
-            id = userServiceImp.getUserIdByName(name, password);
-            User user = userServiceImp.getUserById(id);
+            id = userService.getUserIdByName(name, password);
+            User user = userService.getUserById(id);
             session.setAttribute("user", user);
             session.setAttribute("role", user.getRole());
             response.sendRedirect("/admin/allUser");

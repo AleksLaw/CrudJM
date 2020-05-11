@@ -1,5 +1,6 @@
 package servlet;
 
+import service.UserService;
 import service.UserServiceImp;
 
 import javax.servlet.ServletException;
@@ -11,15 +12,15 @@ import java.io.IOException;
 
 @WebServlet(value = "/admin/delUser")
 public class DelUserServlet extends HttpServlet {
+    private final UserService userService = UserServiceImp.getInstance();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserServiceImp userServiceImp = UserServiceImp.getInstance();
         response.getWriter().println(request.getParameter("id"));
         Long id = Long.parseLong(request.getParameter("id"));
-        userServiceImp.delUser(id);
+        userService.delUser(id);
         response.sendRedirect("/admin/allUser");
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws  ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }
